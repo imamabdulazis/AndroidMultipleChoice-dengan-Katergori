@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.imamabdulazis.quiz.model.Kategori;
+import com.imamabdulazis.quiz.model.Pertanyaan;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ public class DBHelper extends SQLiteAssetHelper {
             instance=new DBHelper(context);
         return instance;
     }
-
 
     public DBHelper(Context context){
         super(context,DB_NAME,null,DB_VER);
@@ -41,5 +41,29 @@ public class DBHelper extends SQLiteAssetHelper {
         }cursor.close();
         db.close();
         return categories;
+    }
+
+    public List<Pertanyaan> getPertanyaanByID(int kategori){
+        SQLiteDatabase db= instance.getWritableDatabase();
+        Cursor cursor=db.rawQuery(String.format("Select * From Question WHERE CategoryID=$id ORDER BY RANDOM() LIMIT 30",kategori),null);
+        List<Pertanyaan> pertanyaans=new ArrayList<>();
+        if (cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                Pertanyaan pertanyaan=new Pertanyaan(cursor.getInt(cursor.getColumnIndex("ID")),
+                        cursor.getString(cursor.getColumnIndex("QuestionText")),
+                        cursor.getString(cursor.getColumnIndex("QuestionImage")),
+                        cursor.getString(cursor.getColumnIndex("AnswerA")),
+                        cursor.getString(cursor.getColumnIndex("AnswerB")),
+                        cursor.getString(cursor.getColumnIndex("AnswerC")),
+                        cursor.getString(cursor.getColumnIndex("AnswerD")),
+                        cursor.getString(cursor.getColumnIndex("CorrectAnswer")),
+                        cursor.getInt(cursor.getColumnIndex("IsImageQuestion")),
+                        cursor.getInt(cursor.getColumnIndex("CategoryID")));
+                pertanyaans.add(pertanyaan);
+                cursor.moveToNext();
+            }
+        }cursor.close();
+        db.close();
+        return pertanyaans;
     }
 }

@@ -1,6 +1,7 @@
 package com.imamabdulazis.quiz.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,9 @@ import android.widget.Adapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.imamabdulazis.quiz.QuizActivity;
 import com.imamabdulazis.quiz.R;
+import com.imamabdulazis.quiz.common.Common;
 import com.imamabdulazis.quiz.model.Kategori;
 
 import java.util.List;
@@ -52,7 +55,11 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.ViewHo
             cardkategori.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, ""+kategoris.get(getAdapterPosition()).getNama(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, ""+kategoris.get(getAdapterPosition()).getNama(), Toast.LENGTH_SHORT).show();
+
+                    Common.pilihKategori=kategoris.get(getAdapterPosition());
+                    Intent intent=new Intent(context, QuizActivity.class);
+                    context.startActivity(intent);
                 }
             });
         }

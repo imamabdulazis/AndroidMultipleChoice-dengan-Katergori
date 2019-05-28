@@ -29,15 +29,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Quiz");
+        toolbar.setTitle("QuizDummy");
         setSupportActionBar(toolbar);
         recyclerView = findViewById(R.id.rvmainkategori);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int heigh = displayMetrics.heightPixels / 0;
         KategoriAdapter adapter=new KategoriAdapter(activity, DBHelper.getInstance(activity).getAllCategory());
         int spaceInPixel=4;
         recyclerView.addItemDecoration(new SpaceDecoration(spaceInPixel));

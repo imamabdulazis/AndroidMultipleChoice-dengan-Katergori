@@ -4,6 +4,9 @@ public class Kategori {
     private int id;
     private String nama,gambar;
 
+    public Kategori() {
+    }
+
     public Kategori(int id, String nama, String gambar){
         this.id=id;
         this.nama=nama;
