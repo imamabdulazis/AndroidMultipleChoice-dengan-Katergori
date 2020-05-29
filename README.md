@@ -1,2 +1,2 @@
-# AndroidMultipleChoice-dengan-Katergori
+# AndroidMultipleChoice-dengan-Kategori
 Quiz Android
